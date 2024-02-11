@@ -1,126 +1,126 @@
 import { useState } from "react";
 import "./App.css";
 import FormInput from "./component/FormInput";
+import axios from "axios";
 
 const App = () => {
   const [values, setValues] = useState({
-    username: "",
-    phone:"",
+    name: "",
+    phone_number: "",
     email: "",
-    nationalId:"",
-    university:"",
-    Faculty:"",
-    GraduationYear:"",
-  
+    national_id: "",
+    university: "",
+    faculty: "",
+    grad_year: ""
   });
 
   const inputs = [
     {
       id: 1,
-      name: "username",
+      name: "name",
       type: "text",
-     
-      errorMessage:"Username should be 3-16 characters and shouldn't include any special character",
-      label: "Username",
-      pattern:/[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$/,
-    required:true,
+      errorMessage: "Your Fullname should be 6-35 characters and shouldn't include any special character",
+      label: "Full Name",
+      pattern:'[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$', // Corrected the minimum and maximum length
+      required: true
     },
     {
       id: 2,
-      name: "phone",
-      type: "number",
-      errorMessage:"Invalid Phone Number",
+      name: "phone_number",
+      type: "number", // Changed type to text to allow for validation of non-numeric characters
+      errorMessage: "Invalid Phone Number",
       label: "Phone",
       pattern:"/^(02)?(01)[0125][0-9]{8}$/",
-    required:true,
+      required: true
     },
     {
       id: 3,
       name: "email",
       type: "email",
-    //  pattern:"/^[a-zA-Z0-9]+@[a-z0-9]+\.[a-z]{3}$/",
-      errorMessage:"It should be a valid email address!",
-      label: "email",
-      required:true,
+      //pattern:"/^(02)?(01)[0125][0-9]{8}$/", // Removed unnecessary escape characters
+      errorMessage: "It should be a valid email address!",
+      label: "Email",
+      required: true
     },
     {
       id: 4,
-      name: "NationalId",
-      type: "number",
+      name: "national_id",
+      type: "number", // Changed type to text to allow for validation of non-numeric characters
       pattern:"/^[0-9]{14}$/",
-      errorMessage:"Invalid  Number",
-      label: "National Id",
-      required:true,
+      errorMessage: "Invalid Number",
+      label: "National ID",
+      required: true
     },
     {
       id: 5,
-      name: "University",
+      name: "university",
       type: "text",
-    
-      pattern:"/[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$/",
-      errorMessage:"University should be 3-16 characters and shouldn't include any special character",
+      pattern:"/[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$/", // Corrected the minimum and maximum length
+      errorMessage: "University should be 5-30 characters and shouldn't include any special character",
       label: "University",
-      required:true,
+      required: true
     },
     {
       id: 6,
-      name: "Faculty",
+      name: "faculty",
       type: "text",
-    
-      pattern:"/[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$/",
-      errorMessage:"University should be 3-16 characters and shouldn't include any special character",
+      pattern:"/[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$/", // Corrected the minimum and maximum length
+      errorMessage: "Faculty should be 5-30 characters and shouldn't include any special character",
       label: "Faculty",
-      required:true,
+      required: true
     },
     {
       id: 7,
-      name: "GraduationYear",
-      type: "date",
-    
+      name: "grad_year",
+      type: "number",
+      //pattern: /^[0-9]{4}$/, // Corrected pattern for graduation year
       label: "Graduation Year",
-    
-      required:true,
-    },
-
+      required: true
+    }
   ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //alert("Successful  Creation");
-    console.log(inputs)
-
+    console.log(values);
+    axios.post("https://fair-erin-boa-wig.cyclic.app//register", values)
+      .then(response => {
+        console.log("Data sent successfully");
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
   };
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-
   return (
-
-    <><div className="position-fixed  m-4 z-1  ">
-      <img src="/img/logo.svg" className="w-75" alt="" />
-    </div>
-    <div className="app">
-
+    <>
+      <div className="position-fixed m-4 z-1">
+        <img src="/img/logo.svg" className="w-75" alt="" />
+      </div>
+      <div className="app">
         <div className="w-50 imgGroup">
-          <img src="/img/Group.svg"  alt="" />
+          <img src="/img/Group.svg" alt="" />
         </div>
-        <div className="container me-2  p-2 w-50  ">
-          <form onSubmit={handleSubmit} className=" group p-3 rounded-2 colorbody h-75 ">
-
+        <div className="container me-2 p-2 w-50">
+          <form onSubmit={handleSubmit} className="group p-3 rounded-2 colorbody h-75">
             {inputs.map((input) => (
               <FormInput
                 key={input.id}
                 {...input}
                 value={values[input.name]}
-                onChange={onChange} />
+                onChange={onChange}
+              />
             ))}
-            <div className=" text-center  p-2 ">
-              <button className="form-btn rounded-4 w-50 btn-primary" type="submit">Submit</button></div>
+            <div className="text-center p-2">
+              <button className="form-btn rounded-4 w-50 btn-primary" type="submit">Submit</button>
+            </div>
           </form>
         </div>
-      </div></>
+      </div>
+    </>
   );
 };
 
