@@ -99,12 +99,12 @@ const App = () => {
   return (
 
     <><div className="position-fixed  m-4 z-1  ">
-      <img src="/src/img/logo.svg" className="w-75" alt="" />
+      <img src="/img/logo.svg" className="w-75" alt="" />
     </div>
     <div className="app">
 
         <div className="w-50 imgGroup">
-          <img src="./src/img/Group.svg"  alt="" />
+          <img src="/img/Group.svg"  alt="" />
         </div>
         <div className="container me-2  p-2 w-50  ">
           <form onSubmit={handleSubmit} className=" group p-3 rounded-2 colorbody h-75 ">

@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: space-between; 
    min-height: 100vh;
-  background: url('img/Rectangle.svg');
+  background: url('/img/Rectangle.svg');
     background-size: cover;
   background-position: center;
   width:100vw;
