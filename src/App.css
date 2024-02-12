@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between; 
   min-height: 100vh;
-  background: url('/img/Rectangle.svg');
+  background: url('/img/bg.png');
   background-size: cover;
   background-position: center;
   width:100vw;
@@ -20,7 +20,7 @@ top:20%;
 }
 .imgGroup img{
 margin-top: 5rem;
-width:88% !important;
+width:95% !important;
 }
 
 @media (max-width: 700px) {

@@ -6,6 +6,7 @@
     background: url('/img/Rectangle.svg');
     background-size: cover;
     background-position: center;
+    background-color: #601232;
     width:100vw;
   }
   .top-20{
@@ -20,7 +21,10 @@
   }
   .imgGroup img{
   margin-top: 5rem;
-  width:88% !important;
+  width:100% !important;
+  }
+  .gate {
+    max-width: 150% !important;
   }
   
   @media (max-width: 700px) {

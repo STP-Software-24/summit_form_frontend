@@ -104,10 +104,11 @@ const RegistrationForm = () => {
         <>
           <div className="position-fixed m-4 z-1">
             <img src="/img/logo.svg" className="w-75" alt="" />
+            <img src="/img/mac_logo.svg" alt="mac logo" />
           </div>
           <div className="app">
             <div className="w-50 imgGroup">
-              <img src="/img/Group.svg" alt="" />
+              <img className="gate" src="/img/gate-01.png" alt="" />
             </div>
             <div className="container me-2 p-2 w-50">
               <form onSubmit={handleSubmit} className="group p-3 rounded-2 colorbody h-75">
