@@ -3,9 +3,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between; 
-   min-height: 100vh;
+  min-height: 100vh;
   background: url('/img/Rectangle.svg');
-    background-size: cover;
+  background-size: cover;
   background-position: center;
   width:100vw;
 }
@@ -17,8 +17,6 @@ top:20%;
 }
 .imgGroup{
   align-self:unset;
-
-
   
 }
 .imgGroup img{
