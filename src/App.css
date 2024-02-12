@@ -1,5 +1,4 @@
  .app {
-  
   display: flex;
   align-items: center;
   justify-content: space-between; 
@@ -22,5 +21,19 @@ top:20%;
 .imgGroup img{
 margin-top: 5rem;
 width:88% !important;
+}
+
+@media (max-width: 700px) {
+ .imgGroup{
+  display: none;
+ }
+ .position-fixed{
+  display: block;
+  margin: 0 auto;
+ }
+
+ .container{
+  margin: 0 auto;
+ }
 }
 
