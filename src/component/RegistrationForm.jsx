@@ -4,7 +4,11 @@ import FormInput from "./FormInput";
 import "./RegistrationForm.css"
 import axios from "axios";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const RegistrationForm = () => {
+    const notifyServerError = () => toast("Internal Server Error, Try again later!");
     const navigate = useNavigate();
     const [values, setValues] = useState({
         name: "",
@@ -60,7 +64,6 @@ const RegistrationForm = () => {
           id: 3,
           name: "email",
           type: "email",
-          //pattern:"/^(02)?(01)[0125][0-9]{8}$/", // Removed unnecessary escape characters
           errorMessage: "It should be a valid email address!",
           label: "Email",
           required: true,
@@ -75,7 +78,6 @@ const RegistrationForm = () => {
           id: 4,
           name: "national_id",
           type: "text", // Changed type to text to allow for validation of non-numeric characters
-          //pattern:"/^[0-9]{14}$/",
           errorMessage: "Invalid Number",
           label: "National ID",
           maxLength:"14",
@@ -91,7 +93,6 @@ const RegistrationForm = () => {
           id: 5,
           name: "university",
           type: "text",
-          //pattern:"/[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$/", // Corrected the minimum and maximum length
           errorMessage: "University should be 5-30 characters and shouldn't include any special character",
           label: "University",
           required: true,
@@ -106,7 +107,6 @@ const RegistrationForm = () => {
           id: 6,
           name: "faculty",
           type: "text",
-          //pattern:"/[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$/", // Corrected the minimum and maximum length
           errorMessage: "Faculty should be 5-30 characters and shouldn't include any special character",
           label: "Faculty",
           required: true,
@@ -121,7 +121,6 @@ const RegistrationForm = () => {
           id: 7,
           name: "grad_year",
           type: "text",
-          //pattern: /^[0-9]{4}$/, // Corrected pattern for graduation year
           label: "Graduation Year",
           maxLength:"4",
           minLength:"4",
@@ -181,8 +180,8 @@ const RegistrationForm = () => {
           }
         }).catch(error => {
           console.log(error)
-          //TODO: show error message in a better way
           console.log("An Error has happened")
+          notifyServerError();
         })
       };
     
@@ -210,7 +209,7 @@ const RegistrationForm = () => {
           <div className="m-4 d-block d-md-inline ">
             <img src="/img/mac_logo.svg" alt="mac logo" className="img-fluid d-inline" />
           </div>
-          <div className="app d-flex justify-content-center">
+          <div className="app">
             <div className="w-75 imgGroup d-none d-md-block">
               <img className="gate" src="/img/Group.png" alt="" />
             </div>
@@ -231,7 +230,7 @@ const RegistrationForm = () => {
               </form>
             </div>
           </div>
-
+          <ToastContainer />
         </>
       );
 };

@@ -12,8 +12,7 @@ body{
     align-items: center;
     justify-content: center; 
     min-height: 100vh;
-    min-width: 70vw;
-    max-width: 90vw;
+    min-width: 100vw;
     /* overflow-x: hidden; */
   }
   .top-20{
@@ -31,7 +30,7 @@ body{
   width:100% !important;
   }
   .gate {
-    min-width: 100% !important;
+    min-width: 105% !important;
   }
 
   .submit-button {
