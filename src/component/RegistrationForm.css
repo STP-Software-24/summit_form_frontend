@@ -12,9 +12,9 @@ body{
     align-items: center;
     justify-content: center; 
     min-height: 100vh;
-    min-width: 100vw;
+    min-width: 70vw;
+    max-width: 90vw;
     /* overflow-x: hidden; */
-   
   }
   .top-20{
   top:20%;
@@ -31,7 +31,16 @@ body{
   width:100% !important;
   }
   .gate {
-    max-width: 150% !important;
+    min-width: 100% !important;
+  }
+
+  .submit-button {
+    background-color: #B48995;
+    color: #7D122E;
+    border-color: #7D122E;
+    font-size: 20px;
+    font:bold;
+    border-radius: 5px;
   }
   
   @media (max-width: 700px) {

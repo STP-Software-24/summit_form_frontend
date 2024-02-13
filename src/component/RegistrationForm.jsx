@@ -15,6 +15,15 @@ const RegistrationForm = () => {
         faculty: "",
         grad_year: ""
       });
+    const [errors, setErrors] = useState({
+      name: "",
+      phone_number: "",
+      email: "",
+      national_id: "",
+      university: "",
+      faculty: "",
+      grad_year: ""
+    });
     
       const inputs = [
         {
@@ -23,8 +32,13 @@ const RegistrationForm = () => {
           type: "text",
           errorMessage: "Your Fullname should be 6-35 characters and shouldn't include any special character",
           label: "Full Name",
-          pattern:'[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$', // Corrected the minimum and maximum length
           required: true,
+          validation: (value) => {
+            if (value.length < 6 || value.length > 35) {
+              return "Your Fullname should be 6-35 characters and shouldn't include any special character";
+            }
+            return "";
+          }
         },
         {
           id: 2,
@@ -32,10 +46,15 @@ const RegistrationForm = () => {
           type: "text", // Changed type to text to allow for validation of non-numeric characters
           errorMessage: "Invalid Phone Number",
           label: "Phone",
-          pattern:"/^(02)?(01)[0125][0-9]{8}$/",
           required: true,
           minLength:"0",
-          maxlength:"11"
+          maxLength:"11",
+          validation: (value) => {
+            if (!/^\d+$/.test(value) || value.length !== 11) {
+              return "Invalid Phone Number";
+            }
+            return "";
+          }
         },
         {
           id: 3,
@@ -44,98 +63,142 @@ const RegistrationForm = () => {
           //pattern:"/^(02)?(01)[0125][0-9]{8}$/", // Removed unnecessary escape characters
           errorMessage: "It should be a valid email address!",
           label: "Email",
-          required: true
+          required: true,
+          validation: (value) => {
+            if(!/.+@[^@]+\.[^@]{2,}$/.test(value) || value.length < 6){
+              return "Invalid Email Address";
+            }
+            return "";
+          }
         },
         {
           id: 4,
           name: "national_id",
           type: "text", // Changed type to text to allow for validation of non-numeric characters
-          pattern:"/^[0-9]{14}$/",
+          //pattern:"/^[0-9]{14}$/",
           errorMessage: "Invalid Number",
           label: "National ID",
-          maxlength:"14",
-          required: true
+          maxLength:"14",
+          required: true,
+          validation: (value) => {
+            if(!/^\d{14}$/.test(value)){
+              return "Invalid National ID";
+            }
+            return "";
+          }
         },
         {
           id: 5,
           name: "university",
           type: "text",
-          pattern:"/[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$/", // Corrected the minimum and maximum length
+          //pattern:"/[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$/", // Corrected the minimum and maximum length
           errorMessage: "University should be 5-30 characters and shouldn't include any special character",
           label: "University",
-          required: true
+          required: true,
+          validation: (value) => {
+            if(value.length < 5 || value.length > 30){
+              return "University should be between 5 and 30 characters";
+            }
+            return "";
+          }
         },
         {
           id: 6,
           name: "faculty",
           type: "text",
-          pattern:"/[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$/", // Corrected the minimum and maximum length
+          //pattern:"/[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$/", // Corrected the minimum and maximum length
           errorMessage: "Faculty should be 5-30 characters and shouldn't include any special character",
           label: "Faculty",
           required: true,
+          validation: (value) => {
+            if(value.length < 5 || value.length > 30){
+              return "Faculty should be between 5 and 30 characters";
+            }
+            return "";
+          }
         },
         {
           id: 7,
           name: "grad_year",
-          type: "number",
+          type: "text",
           //pattern: /^[0-9]{4}$/, // Corrected pattern for graduation year
           label: "Graduation Year",
-          required: true
+          maxLength:"4",
+          minLength:"4",
+          required: true,
+          validation: (value) => {
+            if(value.length !== 4 || /^\d+$/.test(value) || value < 1990 || value > 2033){
+              return "Invalid Graduation Year";
+            }
+            return "";
+          }
         }
       ];
-
-      /* Validation error format {
-        {
-	"success": false,
-	"errors": [
-		{
-			"type": "field",
-			"value": "304056110177",
-			"msg": "Invalid value",
-			"path": "national_id",
-			"location": "body"
-		}
-	]
-}
-      }*/
-    
     
       const handleSubmit = (e) => {
         e.preventDefault();
+        let hasErrors = false;
+        const newErrors = {};
+    
+        // Validate each field
+        Object.entries(values).forEach(([name, value]) => {
+          const errorMessage = inputs.find(input => input.name === name)?.validation(value);
+          if (errorMessage) {
+            hasErrors = true;
+            newErrors[name] = errorMessage;
+          }
+        });
+    
+        // Update errors state
+        setErrors(newErrors);
+    
+        // If there are errors, prevent form submission
+        if (hasErrors) {
+          console.log(newErrors);
+          return;
+        }
+
+        //
         console.log(values);
         //const url = "https://fair-erin-boa-wig.cyclic.app/register";
         const url = "http://localhost:3000/";
         // check if user exists in Database
-        axios.get(url + "check", values).then(response => {
-          if(response.data){
-            // show message in a better way
-            "You have already registered."
+        axios.get(url + `?email=${encodeURI(values.email)}&nid=${values.national_id}`, values).then(response => {
+          if(response.data.length != 0){
+            // TODO: show message in a better way
+            console.log(response);
+            console.log("You are already registered.")
           }
           else{
               axios.post(url + "register", values)
                 .then(response => {
                   console.log("Data sent successfully");
-                  navigate('/thank-you'); // Redirect to thank you page
+                  navigate('/thankyou'); // Redirect to thank you page
               })
                 .catch(error => {
                 console.error("Error:", error);
               });
           }
         }).catch(error => {
-          "An Error has happened"
+          console.log(error)
+          //TODO: show error message in a better way
+          console.log("An Error has happened")
         })
       };
     
       const onChange = (e) => {
-
-        if(e.target.name=="phone_number" || e.target.name=="national_id" ){
+        if(e.target.name=="phone_number" || e.target.name=="national_id"){
           if(/^\d+$/.test(e.target.value)){
+            setValues({ ...values, [e.target.name]: e.target.value });
+          }
+        }
+        else if(e.target.name=="grad_year"){
+          if(/^\d+$/.test(e.target.value) && e.target.value.length <= 4){
             setValues({ ...values, [e.target.name]: e.target.value });
           }
         }
         else{
           setValues({ ...values, [e.target.name]: e.target.value });
-
         }
       };
     
@@ -147,7 +210,7 @@ const RegistrationForm = () => {
           <div className="m-4 d-block d-md-inline ">
             <img src="/img/mac_logo.svg" alt="mac logo" className="img-fluid d-inline" />
           </div>
-          <div className="app">
+          <div className="app d-flex justify-content-center">
             <div className="w-75 imgGroup d-none d-md-block">
               <img className="gate" src="/img/Group.png" alt="" />
             </div>
@@ -159,10 +222,11 @@ const RegistrationForm = () => {
                     {...input}
                     value={values[input.name]}
                     onChange={onChange}
+                    error={errors[input.name]}
                   />
                 ))}
                 <div className="text-center p-2">
-                  <button className="form-btn rounded-4 w-50 btn-primary" type="submit">Submit</button>
+                  <button className="form-btn rounded-4 mt-2 w-40 btn-primary submit-button" type="submit">SUBMIT</button>
                 </div>
               </form>
             </div>
