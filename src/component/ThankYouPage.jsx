@@ -6,13 +6,12 @@ const ThankYouPage = () => {
   return (
     <div className="thank-you">
       <div className="message">
-        <h2 class='white-text'>Thank you for registering!</h2>
-        <p>You have successfully submitted your registration.</p>
-        <p>Join our WhatsApp group <a href="https://chat.whatsapp.com/LcyvQsu51p79jXAOP7m5x0">here</a>.</p>
-        <Link to="/">Go back to registration</Link>
+        <h2 class='white-text'>Thanks for Applying!</h2>
+        <p>Join this <a href="https://chat.whatsapp.com/LcyvQsu51p79jXAOP7m5x0">WhatsApp Group</a>.</p>
       </div>
     </div>
   );
 };
+//<Link to="/">Go back to registration</Link>
 
 export default ThankYouPage;

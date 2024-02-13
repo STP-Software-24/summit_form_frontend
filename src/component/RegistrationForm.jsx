@@ -83,21 +83,47 @@ const RegistrationForm = () => {
           required: true
         }
       ];
+
+      /* Validation error format {
+        {
+	"success": false,
+	"errors": [
+		{
+			"type": "field",
+			"value": "304056110177",
+			"msg": "Invalid value",
+			"path": "national_id",
+			"location": "body"
+		}
+	]
+}
+      }*/
     
     
       const handleSubmit = (e) => {
         e.preventDefault();
         console.log(values);
         //const url = "https://fair-erin-boa-wig.cyclic.app/register";
-        const url = "http://localhost:3000/register";
-        axios.post(url, values)
-          .then(response => {
-            console.log("Data sent successfully");
-            navigate('/thank-you'); // Redirect to thank you page
-          })
-          .catch(error => {
-            console.error("Error:", error);
-          });
+        const url = "http://localhost:3000/";
+        // check if user exists in Database
+        axios.get(url + "check", values).then(response => {
+          if(response.data){
+            // show message in a better way
+            "You have already registered."
+          }
+          else{
+              axios.post(url + "register", values)
+                .then(response => {
+                  console.log("Data sent successfully");
+                  navigate('/thank-you'); // Redirect to thank you page
+              })
+                .catch(error => {
+                console.error("Error:", error);
+              });
+          }
+        }).catch(error => {
+          "An Error has happened"
+        })
       };
     
       const onChange = (e) => {
@@ -123,7 +149,7 @@ const RegistrationForm = () => {
           </div>
           <div className="app">
             <div className="w-75 imgGroup d-none d-md-block">
-              <img className="gate" src="/img/gate-01.png" alt="" />
+              <img className="gate" src="/img/Group.png" alt="" />
             </div>
             <div className="me-2 p-2 w-100">
               <form onSubmit={handleSubmit} className="group p-3 rounded-2 colorbody h-75 m-5">
