@@ -164,19 +164,24 @@ const RegistrationForm = () => {
         const url = "https://fair-erin-boa-wig.cyclic.app/";
         //const url = "http://localhost:3000/";
         // check if user exists in Database
-        const exist = axios.get(url + `?email=${encodeURI(values.email)}&nid=${values.national_id}`, values);
-        if(exist.data.length == 0){
-          axios.post(url + "register", values)
-          .then(response => {
-            console.log("Data sent successfully");
-            navigate('/thankyou'); // Redirect to thank you page
+        axios.get(url + `?email=${encodeURI(values.email)}&nid=${values.national_id}`, values).then(response => {
+          if(response.data.length != 0){
+            notifyAlreadyRig();
+          }
+          else{
+              axios.post(url + "register", values)
+                .then(response => {
+                  console.log("Data sent successfully");
+                  navigate('/thankyou'); // Redirect to thank you page
+              })
+                .catch(error => {
+                console.error("Error:", error);
+              });
+          }
         }).catch(error => {
-          console.error("Error:", error);
-        });
-        }
-        else{
-          notifyAlreadyRig();
-        }
+          console.log("An Error has happened")
+          notifyServerError();
+        })
       };
     
       const onChange = (e) => {
