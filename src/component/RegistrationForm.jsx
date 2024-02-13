@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const RegistrationForm = () => {
     const notifyServerError = () => toast("Internal Server Error, Try again later!");
+    const notifyAlreadyRig = () => toast("You have already registered!");
     const navigate = useNavigate();
     const [values, setValues] = useState({
         name: "",
@@ -126,7 +127,7 @@ const RegistrationForm = () => {
           minLength:"4",
           required: true,
           validation: (value) => {
-            if(value.length !== 4 || /^\d+$/.test(value) || value < 1990 || value > 2033){
+            if(value.length !== 4 || value < 1990 || value > 2033){
               return "Invalid Graduation Year";
             }
             return "";
@@ -159,14 +160,12 @@ const RegistrationForm = () => {
 
         //
         console.log(values);
-        //const url = "https://fair-erin-boa-wig.cyclic.app/register";
-        const url = "http://localhost:3000/";
+        const url = "https://fair-erin-boa-wig.cyclic.app/";
+        //const url = "http://localhost:3000/";
         // check if user exists in Database
         axios.get(url + `?email=${encodeURI(values.email)}&nid=${values.national_id}`, values).then(response => {
           if(response.data.length != 0){
-            // TODO: show message in a better way
-            console.log(response);
-            console.log("You are already registered.")
+            notifyAlreadyRig();
           }
           else{
               axios.post(url + "register", values)
@@ -179,7 +178,6 @@ const RegistrationForm = () => {
               });
           }
         }).catch(error => {
-          console.log(error)
           console.log("An Error has happened")
           notifyServerError();
         })
