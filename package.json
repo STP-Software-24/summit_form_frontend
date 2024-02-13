@@ -42,6 +42,8 @@
 
     "react-router-dom": "^6.22.0",
 
+    "react-toastify": "^10.0.4",
+
     "requirejs": "^2.3.6"
 
   },
