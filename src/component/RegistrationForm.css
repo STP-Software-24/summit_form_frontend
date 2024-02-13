@@ -1,13 +1,19 @@
+body{
+  background: url('/img/Rectangle.svg');
+  background-size: cover;
+  background-position: center;
+  background-color: #601232;
+  overflow-x: hidden;
+  width:100vw;
+}
+
 .app {
     display: flex;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: center; 
     min-height: 100vh;
-    background: url('/img/Rectangle.svg');
-    background-size: cover;
-    background-position: center;
-    background-color: #601232;
-    width:100vw;
+    overflow-x: hidden;
+   
   }
   .top-20{
   top:20%;

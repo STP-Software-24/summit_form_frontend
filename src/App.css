@@ -1,4 +1,4 @@
- .app {
+ /* .app {
   display: flex;
   align-items: center;
   justify-content: space-between; 
@@ -7,7 +7,7 @@
   background-size: cover;
   background-position: center;
   width:100vw;
-}
+} */
 .top-20{
 top:20%;
 }

@@ -24,16 +24,18 @@ const RegistrationForm = () => {
           errorMessage: "Your Fullname should be 6-35 characters and shouldn't include any special character",
           label: "Full Name",
           pattern:'[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$', // Corrected the minimum and maximum length
-          required: true
+          required: true,
         },
         {
           id: 2,
           name: "phone_number",
-          type: "number", // Changed type to text to allow for validation of non-numeric characters
+          type: "text", // Changed type to text to allow for validation of non-numeric characters
           errorMessage: "Invalid Phone Number",
           label: "Phone",
           pattern:"/^(02)?(01)[0125][0-9]{8}$/",
-          required: true
+          required: true,
+          minLength:"0",
+          maxlength:"11"
         },
         {
           id: 3,
@@ -47,10 +49,11 @@ const RegistrationForm = () => {
         {
           id: 4,
           name: "national_id",
-          type: "number", // Changed type to text to allow for validation of non-numeric characters
+          type: "text", // Changed type to text to allow for validation of non-numeric characters
           pattern:"/^[0-9]{14}$/",
           errorMessage: "Invalid Number",
           label: "National ID",
+          maxlength:"14",
           required: true
         },
         {
@@ -69,7 +72,7 @@ const RegistrationForm = () => {
           pattern:"/[(a-zA-Z)||(a-zA-Z ?:\s)]{3,16}?$/", // Corrected the minimum and maximum length
           errorMessage: "Faculty should be 5-30 characters and shouldn't include any special character",
           label: "Faculty",
-          required: true
+          required: true,
         },
         {
           id: 7,
@@ -80,6 +83,7 @@ const RegistrationForm = () => {
           required: true
         }
       ];
+    
     
       const handleSubmit = (e) => {
         e.preventDefault();
@@ -97,20 +101,31 @@ const RegistrationForm = () => {
       };
     
       const onChange = (e) => {
-        setValues({ ...values, [e.target.name]: e.target.value });
+
+        if(e.target.name=="phone_number" || e.target.name=="national_id" ){
+          if(/^\d+$/.test(e.target.value)){
+            setValues({ ...values, [e.target.name]: e.target.value });
+          }
+        }
+        else{
+          setValues({ ...values, [e.target.name]: e.target.value });
+
+        }
       };
     
       return (
         <>
-          <div className="position-fixed m-4 z-1">
-            <img src="/img/logo.svg" className="w-75" alt="" />
+          <div className="m-4 z-1 d-block d-md-inline-block">
+            <img src="/img/logo.svg" className="w-0  m-0 mx-auto d-block d-md-inline " alt="" />
+          </div>
+          <div className="m-4 z-1 d-inline ">
             <img src="/img/mac_logo.svg" alt="mac logo" />
           </div>
           <div className="app">
-            <div className="w-50 imgGroup">
+            <div className="w-75 imgGroup d-none d-md-block">
               <img className="gate" src="/img/gate-01.png" alt="" />
             </div>
-            <div className="container me-2 p-2 w-50">
+            <div className=" me-2 p-2 w-100">
               <form onSubmit={handleSubmit} className="group p-3 rounded-2 colorbody h-75">
                 {inputs.map((input) => (
                   <FormInput
