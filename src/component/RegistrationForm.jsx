@@ -35,12 +35,12 @@ const RegistrationForm = () => {
           id: 1,
           name: "name",
           type: "text",
-          errorMessage: "Your Fullname should be 6-35 characters and shouldn't include any special character",
+          errorMessage: "Your Fullname should be 6-55 characters and shouldn't include any special character",
           label: "Full Name",
           required: true,
           validation: (value) => {
-            if (value.length < 6 || value.length > 35) {
-              return "Your Fullname should be 6-35 characters and shouldn't include any special character";
+            if (value.length < 6 || value.length > 55) {
+              return "Your Fullname should be 6-55 characters and shouldn't include any special character";
             }
             return "";
           }
@@ -82,6 +82,7 @@ const RegistrationForm = () => {
           errorMessage: "Invalid Number",
           label: "National ID",
           maxLength:"14",
+          minLength:"14",
           required: true,
           validation: (value) => {
             if(!/^\d{14}$/.test(value)){
@@ -94,12 +95,12 @@ const RegistrationForm = () => {
           id: 5,
           name: "university",
           type: "text",
-          errorMessage: "University should be 5-30 characters and shouldn't include any special character",
+          errorMessage: "University should be 3-40 characters and shouldn't include any special character",
           label: "University",
           required: true,
           validation: (value) => {
-            if(value.length < 5 || value.length > 30){
-              return "University should be between 5 and 30 characters";
+            if(value.length < 3 || value.length > 40){
+              return "University should be between 3 and 40 characters";
             }
             return "";
           }
@@ -108,12 +109,12 @@ const RegistrationForm = () => {
           id: 6,
           name: "faculty",
           type: "text",
-          errorMessage: "Faculty should be 5-30 characters and shouldn't include any special character",
+          errorMessage: "Faculty should be 3-40 characters and shouldn't include any special character",
           label: "Faculty",
           required: true,
           validation: (value) => {
-            if(value.length < 5 || value.length > 30){
-              return "Faculty should be between 5 and 30 characters";
+            if(value.length < 3 || value.length > 40){
+              return "Faculty should be between 3 and 40 characters";
             }
             return "";
           }
