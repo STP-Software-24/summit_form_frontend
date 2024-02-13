@@ -115,18 +115,18 @@ const RegistrationForm = () => {
     
       return (
         <>
-          <div className="m-4 z-1 d-block d-md-inline-block">
-            <img src="/img/logo.svg" className="w-0  m-0 mx-auto d-block d-md-inline " alt="" />
+          <div className="m-4 d-block d-md-inline ">
+            <img src="/img/logo.svg" className=" m-0 mx-auto d-block d-md-inline-block " alt="" />
           </div>
-          <div className="m-4 z-1 d-inline ">
-            <img src="/img/mac_logo.svg" alt="mac logo" />
+          <div className="m-4 d-block d-md-inline ">
+            <img src="/img/mac_logo.svg" alt="mac logo" className="img-fluid d-inline" />
           </div>
           <div className="app">
             <div className="w-75 imgGroup d-none d-md-block">
               <img className="gate" src="/img/gate-01.png" alt="" />
             </div>
-            <div className=" me-2 p-2 w-100">
-              <form onSubmit={handleSubmit} className="group p-3 rounded-2 colorbody h-75">
+            <div className="me-2 p-2 w-100">
+              <form onSubmit={handleSubmit} className="group p-3 rounded-2 colorbody h-75 m-5">
                 {inputs.map((input) => (
                   <FormInput
                     key={input.id}
@@ -141,6 +141,7 @@ const RegistrationForm = () => {
               </form>
             </div>
           </div>
+
         </>
       );
 };
