@@ -161,7 +161,7 @@ const RegistrationForm = () => {
 
         //
         console.log(values);
-        const url = "https://fair-erin-boa-wig.cyclic.app/";
+        const url = "https://vast-blue-ant-hose.cyclic.app/";
         //const url = "http://localhost:3000/";
         // check if user exists in Database
         axios.get(url + `?email=${encodeURI(values.email)}&nid=${values.national_id}`, values).then(response => {
